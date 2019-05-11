@@ -40,7 +40,7 @@ class UEditor extends Component {
           imageCompressBorder: 1600, /* 图片压缩最长边限制 */
           imageInsertAlign: 'none', /* 插入的图片浮动方式 */
           imageUrlPrefix: '', /* 图片访问路径前缀 */
-          imageResponseKey: 'url', /* 图片上传接口response中包含图片路径的键名 */
+          imageResponseKey: 'url', // ! 图片上传接口response中包含图片路径的键名
 
           /* 涂鸦图片上传配置项 */
           scrawlActionName: 'uploadscrawl', /* 执行上传涂鸦的action名称 */
@@ -95,12 +95,39 @@ class UEditor extends Component {
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
-    let value = nextProps.value;
     let editorReady = prevState.editorReady;
 
-    editorReady && editorReady.then((ueditor) => {
-      value === ueditor.getContent() || ueditor.setContent(value || '');
-    });
+    if (Object.prototype.hasOwnProperty.call(nextProps, 'value')) {
+      let value = nextProps.value;
+
+      console.log('getProps', value);
+
+      editorReady && editorReady.then((ueditor) => {
+        value === ueditor.getContent() || ueditor.setContent(value || '');
+      });
+    }
+
+    console.log(Object.prototype.hasOwnProperty.call(nextProps.ueditorOptions, 'serverExtra'));
+
+    // 只能更新severExtra
+    if (Object.prototype.hasOwnProperty.call(nextProps.ueditorOptions, 'serverExtra')) {
+      let serverExtraStr = JSON.stringify(nextProps.ueditorOptions.serverExtra);
+
+      if (serverExtraStr === prevState.serverExtraStr) {
+        return null;
+      }
+      editorReady && editorReady.then((ueditor) => {
+        console.log('resetConfig');
+        ueditor.setExtraData(nextProps.ueditorOptions.serverExtra);
+        // 增加一层保险，react的组件更新机制有可能使ueditor参数更新在beforeUpload之后
+        console.log('setfunc', nextProps.setExtraDataComplete);
+        nextProps.setExtraDataComplete && nextProps.setExtraDataComplete();
+      });
+      return {
+        ...prevState,
+        serverExtraStr
+      };
+    }
     return null;
   }
 
