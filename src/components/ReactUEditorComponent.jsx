@@ -28,7 +28,7 @@ class UEditor extends Component {
         toolbars,
         // 图片转存关闭
         catchRemoteImageEnable: false,
-        serverUrl: 'http://localhost:8000',
+        // serverUrl: 'http://localhost:8000',
         serverOptions: {
           /* 上传图片配置项 */
           imageActionName: 'uploadimage', /* 执行上传图片的action名称 */
