@@ -2,17 +2,27 @@
   "name": "react-ueditor-component",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "debounce": "^1.2.0",
-    "react": "^16.8.6"
-  },
-  "devDependencies": {
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
+  },
+  "dependencies": {
+    "debounce": "^1.2.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-node": "^8.0.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "react-dom": "^16.8.6",
+    "react-scripts": "3.0.1"
   },
   "eslintConfig": {
     "extends": "react-app"

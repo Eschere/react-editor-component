@@ -41,7 +41,7 @@ class UEditor extends Component {
           imageInsertAlign: 'none', /* 插入的图片浮动方式 */
           imageUrlPrefix: '', /* 图片访问路径前缀 */
           imageResponseKey: 'url', /* 图片上传接口response中包含图片路径的键名 */
-          
+
           /* 涂鸦图片上传配置项 */
           scrawlActionName: 'uploadscrawl', /* 执行上传涂鸦的action名称 */
           scrawlFieldName: 'file', /* 提交的图片表单名称 */
@@ -50,7 +50,7 @@ class UEditor extends Component {
           scrawlUrlPrefix: '', /* 图片访问路径前缀 */
           scrawlInsertAlign: 'none',
           scrawlResponseKey: 'url', /* 涂鸦图片上传接口response中包含图片路径的键名 */
-          
+
           /* 上传视频配置 */
           videoActionName: 'uploadvideo', /* 执行上传视频的action名称 */
           videoFieldName: 'file', /* 提交的视频表单名称 */
