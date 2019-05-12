@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import ReactUEditorComponent from './components/ReactUEditorComponent';
 
-import { upload, headers } from './api/api';
+import {
+  upload, headers, getToken, qiniuDomain
+} from './api/api';
 
 export default class App extends Component {
   state = {
     value: '',
     serverExtra: {
-      headers
+      headers,
+      extraData: undefined
     }
   }
 
@@ -58,17 +61,32 @@ export default class App extends Component {
   // setExtraDataComplete会在重新设置上传携带参数时被调用
   // 需要将setExtraDataComplete传给ReactUEditorComponent才能生效
   beforeUpload = file => new Promise((resolve, reject) => {
-    this.setState({
-      serverExtra: {
-        headers,
-        extraData: {
-          tik: 123
-        }
-      },
-      setExtraDataComplete: () => {
-        resolve(file);
-      }
-    });
+    let key = 'd1234567989';
+
+    // 请求服务器，获取七牛上传凭证
+    fetch(`${getToken}?key=${key}`, {
+      headers
+    })
+      .then(response => response.json())
+      .then((data) => {
+        console.log(data);
+
+        // 设置七牛直传额外数据
+        this.setState({
+          serverExtra: {
+            headers: undefined,
+            extraData: {
+              token: data.token,
+              key
+            }
+          },
+          setExtraDataComplete: () => {
+            resolve(new File([1], 'demo.png', {
+              type: 'image/png'
+            }));
+          }
+        });
+      });
   })
 
   render () {
@@ -96,8 +114,8 @@ export default class App extends Component {
               imageCompressEnable: true, /* 是否压缩图片,默认是true */
               imageCompressBorder: 1600, /* 图片压缩最长边限制 */
               imageInsertAlign: 'none', /* 插入的图片浮动方式 */
-              imageUrlPrefix: '', /* 图片访问路径前缀 */
-              imageResponseKey: 'fileURL', //! 图片上传接口response中包含图片路径的键名
+              imageUrlPrefix: qiniuDomain, /* 图片访问路径前缀 */
+              imageResponseKey: 'key', //! 图片上传接口response中包含图片路径的键名
 
               /* 涂鸦图片上传配置项 */
               scrawlActionName: 'uploadscrawl', /* 执行上传涂鸦的action名称 */
