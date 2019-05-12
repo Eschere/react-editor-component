@@ -9,7 +9,7 @@ let toolbars = [[
   'directionalityltr', 'directionalityrtl', 'indent', '|',
   'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
   'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-  'simpleupload', /* 'insertimage', */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
+  'simpleupload', /* 'insertimage', 不支持 */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
   'horizontal', 'date', 'time', 'spechars', /* 'snapscreen',  'wordimage', */'|',
   'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts', */ '|',
   'print', 'preview', 'searchreplace', 'drafts', 'help'
@@ -103,32 +103,37 @@ class UEditor extends Component {
       console.log('getProps', value);
 
       editorReady && editorReady.then((ueditor) => {
-        value === ueditor.getContent() || ueditor.setContent(value || '');
+        (value === prevState.content || value === ueditor.getContent()) || ueditor.setContent(value || '');
       });
     }
-
-    console.log(Object.prototype.hasOwnProperty.call(nextProps.ueditorOptions, 'serverExtra'));
 
     // 只能更新severExtra
     if (Object.prototype.hasOwnProperty.call(nextProps.ueditorOptions, 'serverExtra')) {
       let serverExtraStr = JSON.stringify(nextProps.ueditorOptions.serverExtra);
 
       if (serverExtraStr === prevState.serverExtraStr) {
-        return null;
+        return {
+          ...prevState,
+          content: nextProps.value
+        };
       }
       editorReady && editorReady.then((ueditor) => {
         console.log('resetConfig');
         ueditor.setExtraData(nextProps.ueditorOptions.serverExtra);
         // 增加一层保险，react的组件更新机制有可能使ueditor参数更新在beforeUpload之后
-        console.log('setfunc', nextProps.setExtraDataComplete);
         nextProps.setExtraDataComplete && nextProps.setExtraDataComplete();
       });
       return {
         ...prevState,
-        serverExtraStr
+        serverExtraStr,
+        content: nextProps.value
       };
     }
-    return null;
+
+    return {
+      ...prevState,
+      content: nextProps.value
+    };
   }
 
   componentWillUnmount () {
@@ -147,9 +152,18 @@ class UEditor extends Component {
         return;
       }
 
-      onChange && onChange(ueditor.getContent());
+      let content = ueditor.getContent();
+
+      // 在极端情况下直接从ueditor中取值会出现props中的value比ueditor中的值旧，造成更新失误
+      // 必须要组件内维护一个变量
+      this.setState({
+        content
+      });
+
+      onChange && onChange(content);
     };
 
+    // this.observer = new MutationObserver(changeHandle);
     this.observer = new MutationObserver(debounce(changeHandle, 50));
     this.observer.observe(ueditor.body, this.observerOptions);
   }
