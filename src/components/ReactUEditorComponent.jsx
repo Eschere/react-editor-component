@@ -22,6 +22,9 @@ class UEditor extends Component {
     this.editorId = 'editor_' + Math.random().toString(16).slice(-6);
 
     this.state = {
+      // 有些情况下getProps中的值是旧值
+      // 组件内维护一个content确定props中传进来的value是否是新值
+      content: '',
       editorReady: false,
       ueditorOptions: {
         autoHeightEnabled: false,
@@ -96,11 +99,12 @@ class UEditor extends Component {
 
   static getDerivedStateFromProps (nextProps, prevState) {
     let editorReady = prevState.editorReady;
+    let value = nextProps.value;
 
     if (Object.prototype.hasOwnProperty.call(nextProps, 'value')) {
-      let value = nextProps.value;
-
       console.log('getProps', value);
+      console.log('content', prevState.content);
+      // debugger;
 
       editorReady && editorReady.then((ueditor) => {
         (value === prevState.content || value === ueditor.getContent()) || ueditor.setContent(value || '');
@@ -114,7 +118,7 @@ class UEditor extends Component {
       if (serverExtraStr === prevState.serverExtraStr) {
         return {
           ...prevState,
-          content: nextProps.value
+          content: value
         };
       }
       editorReady && editorReady.then((ueditor) => {
@@ -126,13 +130,13 @@ class UEditor extends Component {
       return {
         ...prevState,
         serverExtraStr,
-        content: nextProps.value
+        content: value
       };
     }
 
     return {
       ...prevState,
-      content: nextProps.value
+      content: value
     };
   }
 
@@ -152,15 +156,7 @@ class UEditor extends Component {
         return;
       }
 
-      let content = ueditor.getContent();
-
-      // 在极端情况下直接从ueditor中取值会出现props中的value比ueditor中的值旧，造成更新失误
-      // 必须要组件内维护一个变量
-      this.setState({
-        content
-      });
-
-      onChange && onChange(content);
+      onChange && onChange(ueditor.getContent());
     };
 
     // this.observer = new MutationObserver(changeHandle);
