@@ -1,21 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import debounce from 'debounce';
 
-let toolbars = [[
-  'fullscreen', /*  */ 'source', '|', 'undo', 'redo', '|',
-  'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
-  'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
-  'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
-  'directionalityltr', 'directionalityrtl', 'indent', '|',
-  'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
-  'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-  'simpleupload', /* 'insertimage', 不支持 */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
-  'horizontal', 'date', 'time', 'spechars', /* 'snapscreen',  'wordimage', */'|',
-  'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts', */ '|',
-  'print', 'preview', 'searchreplace', 'drafts', 'help'
-]];
-
-class UEditor extends Component {
+class UEditor extends React.Component {
   constructor (props) {
     super(props);
 
@@ -119,10 +105,9 @@ class UEditor extends Component {
     if (Object.prototype.hasOwnProperty.call(nextProps, 'value')) {
       console.log('getProps', value);
       console.log('content', prevState.content);
-      // debugger;
 
       editorReady && editorReady.then((ueditor) => {
-        (value === prevState.content || value === ueditor.getContent()) || true || ueditor.setContent(value || '');
+        (value === prevState.content || value === ueditor.getContent()) || ueditor.setContent(value || '');
       });
     }
 
@@ -137,8 +122,7 @@ class UEditor extends Component {
         };
       }
       editorReady && editorReady.then((ueditor) => {
-        console.log('resetConfig');
-        ueditor.setExtraData(nextProps.ueditorOptions.serverExtra);
+        ueditor.setExtraData && ueditor.setExtraData(nextProps.ueditorOptions.serverExtra) && console.log('resetConfig');
         // 增加一层保险，react的组件更新机制有可能使ueditor参数更新在beforeUpload之后
         nextProps.setExtraDataComplete && nextProps.setExtraDataComplete();
       });

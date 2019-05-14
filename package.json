@@ -1,18 +1,24 @@
 {
   "name": "react-ueditor-component",
-  "version": "1.0.0",
-  "description": "Wraped UEditor into React Component",
-  "main": "",
+  "version": "1.0.1",
+  "description": "UEditor wrapped by React Component",
+  "main": "./index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "dev": "react-scripts start",
+    "build": "node build.js"
   },
+  "keywords": [
+    "ueditor"
+  ],
+  "author": "eschere",
+  "license": "MIT",
   "dependencies": {
     "debounce": "^1.2.0",
-    "eslint-plugin-standard": "^4.0.0",
     "react": "^16.8.6"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-standard": "^12.0.0",
@@ -22,8 +28,12 @@
     "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "ora": "^3.4.0",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1"
+    "react-scripts": "3.0.1",
+    "rimraf": "^2.6.3",
+    "uglifyjs-webpack-plugin": "^2.1.2"
   },
   "eslintConfig": {
     "extends": "react-app"
