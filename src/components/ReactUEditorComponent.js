@@ -47,7 +47,7 @@ class UEditor extends React.Component {
         scrawlMaxSize: 2048000, /* 上传大小限制，单位B */
         scrawlUrlPrefix: '', /* 图片访问路径前缀 */
         scrawlInsertAlign: 'none',
-        scrawlResponseKey: 'url', /* 涂鸦图片上传接口response中包含图片路径的键名 */
+        scrawlResponseKey: 'url', // ! 涂鸦图片上传接口response中包含图片路径的键名
 
         /* 上传视频配置 */
         videoActionName: 'uploadvideo', /* 执行上传视频的action名称 */
@@ -55,6 +55,7 @@ class UEditor extends React.Component {
         videoPathFormat: '/ueditor/php/upload/video/{yyyy}{mm}{dd}/{time}{rand:6}', /* 上传保存路径,可以自定义保存路径和文件名格式 */
         videoUrlPrefix: '', /* 视频访问路径前缀 */
         videoMaxSize: 102400000, /* 上传大小限制，单位B，默认100MB */
+        videoResponseKey: 'url',
         videoAllowFiles: [
           '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg',
           '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid'

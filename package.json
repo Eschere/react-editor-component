@@ -8,15 +8,21 @@
     "build": "node build.js"
   },
   "keywords": [
-    "ueditor"
+    "ueditor",
+    "rich-text",
+    "富文本",
+    "react"
   ],
   "author": "eschere",
   "license": "MIT",
-  "dependencies": {
-    "debounce": "^1.2.0",
-    "react": "^16.8.6"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eschere/react-editor-component.git"
   },
+  "homepage": "https://github.com/Eschere/react-editor-component#readme",
   "devDependencies": {
+    "debounce": "^1.2.0",
+    "react": "^16.8.6",
     "@babel/preset-env": "^7.4.4",
     "@babel/preset-react": "^7.0.0",
     "eslint": "^5.4.0",
