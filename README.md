@@ -12,9 +12,12 @@ ueditor基于官方1.4.3.3分支修改，功能还在不断完善中
   </a>
   <a href="https://github.com/Eschere/react-editor-component/raw/master/assets/utf8-php.zip">
     <img src="https://img.shields.io/badge/assets-utf8--php-brightgreen.svg">
-  <a>
+  </a>
 </p>
 
+### Features
+1. 接受`value`和`onChange`，使用起来就像`input`一样简单，与`antd`的表单双向绑定配合使用更简单
+2. 上传文件增加beforeUpload接口，可在上传前修改需要上传的文件、数据和请求头
 
 ### 安装
 ```bash
