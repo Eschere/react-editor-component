@@ -53,7 +53,8 @@ module.exports = {
     'jsx-a11y/anchor-is-valid': 0,
     'jsx-a11y/label-has-for': 0,
     'import/no-unresolved': [2, { ignore: ['^@/', './'] }],
-    'import/no-extraneous-dependencies': 0
+    'import/no-extraneous-dependencies': 0,
+    'react/jsx-filename-extension': 0
   },
   globals: {
     React: true

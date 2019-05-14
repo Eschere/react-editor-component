@@ -1,7 +1,8 @@
 {
   "name": "react-ueditor-component",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Wraped UEditor into React Component",
+  "main": "",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build"
