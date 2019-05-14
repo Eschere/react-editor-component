@@ -1,6 +1,6 @@
 {
   "name": "react-ueditor-component",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "UEditor wrapped by React Component",
   "main": "./index.js",
   "scripts": {

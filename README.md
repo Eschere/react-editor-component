@@ -1,4 +1,4 @@
-### react-ueditor-component
+## react-ueditor-component
 
 ueditor的react封装版，修改了ueditor中的获取服务器端配置实现，更符合前后端分离的思想
 
@@ -10,6 +10,9 @@ ueditor基于官方1.4.3.3分支修改，功能还在不断完善中
   <a href="https://www.npmjs.com/package/react-ueditor-component">
     <img alt="npm" src="https://img.shields.io/npm/v/react-ueditor-component.svg">
   </a>
+  <a href="https://github.com/Eschere/react-editor-component/raw/master/assets/utf8-php.zip">
+    <img src="https://img.shields.io/badge/assets-utf8--php-brightgreen.svg">
+  <a>
 </p>
 
 
@@ -23,7 +26,13 @@ yarn add react-ueditor-component --save
 ```
 
 ### 使用
-
+下载修改后打包的[ueditor.zip](https://github.com/Eschere/react-editor-component/raw/master/assets/utf8-php.zip)，或者找到`node_modules/react-ueditor-component/assets/utf8-php.zip`，解压文件，放在网站的根目录，react项目一般放在`public`文件夹下，
+`index.html`中`script`标签引入`ueditor`代码
+```xml
+<script src="/utf8-php/ueditor.config.js"></script>
+<script src="/utf8-php/ueditor.all.js"></script>
+```
+引入`ReactUEditorComponent`组件
 ```js
 import ReactUEditorComponent from 'react-ueditor-component';
 
@@ -163,11 +172,13 @@ export default class App extends React.Component {
 
 
 `scrawlResponseKey`: 涂鸦上传成功后，后台返回的json数据中包含图片地址信息的字段名
+
+
 `videoResponseKey`: 视频上传成功后，后台返回的json数据中包含视频地址信息的字段名
 
 #### 上传接口
 `ueditorOptions.serverUrl`
-必填
+type: `string`必填
 
 #### 上传接口额外数据
 `ueditorOptions.serverExtra`
