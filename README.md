@@ -16,8 +16,8 @@ ueditor基于官方1.4.3.3分支修改，功能还在不断完善中
 </p>
 
 ### Features
-1. 接受`value`和`onChange`，使用起来就像`input`一样简单，与`antd`的表单双向绑定配合使用更简单
-2. 上传文件增加beforeUpload接口，可在上传前修改需要上传的文件、数据和请求头
+1. 接收`value`和`onChange`，使用起来就像`input`一样简单，与`antd`的表单双向绑定配合使用更简单
+2. 上传文件增加`beforeUpload`钩子，可在上传前修改需要上传的文件、数据和请求头
 
 ### 安装
 ```bash
@@ -88,8 +88,8 @@ export default class App extends React.Component {
 | 参数 | 说明 | 类型 | 默认值 |
 |-|-|-|-|
 | value | 设置编辑器的内容 | `string` | - |
+| onChange | 编辑器内容变化回调 | `Function(value)` | - |
 | setExtraDataComplete | 设置上传文件额外数据完成事件 | `Function()` | - |
-| onChange | 设置编辑器内容变化回调 | `Function(value)` | - |
 | ueditorOptions | 编辑器初始化的配置，在[官方文档](https://fex.baidu.com/ueditor/#start-config)支持的参数上增加了一些内容，**除`serverExtra`外不能动态变动** | `object` | 见下文 |
 
 ### ueditorOptions
@@ -185,7 +185,7 @@ type: `string`必填
 
 #### 上传接口额外数据
 `ueditorOptions.serverExtra`
-上传接口的额外数据，可动态变动的数据
+上传接口的额外数据，可动态变动
 ```jsx
 
 <ReactUEditorComponent 
@@ -202,7 +202,7 @@ type: `string`必填
   }}
 />
 ```
-如上例子在调用上传接口时header会增加`auth: token`,
+如上例子在调用上传接口时header会增加`auth: token`，
 body中会增加`author: author`
 
 #### 上传前钩子
