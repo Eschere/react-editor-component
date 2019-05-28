@@ -1,7 +1,6 @@
 import React from 'react';
 import OwnServer from './OwnServer';
 import QiniuServer from './QiniuServer';
-import Test from './Test';
 
 import {
   upload, headers
@@ -15,17 +14,13 @@ let toolbars = [[
   'directionalityltr', 'directionalityrtl', 'indent', '|',
   'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
   'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-  'simpleupload', /* 'insertimage', 不支持 */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
+  'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
   'horizontal', 'date', 'time', 'spechars', /* 'snapscreen',  'wordimage', */'|',
   'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts', */ '|',
   'print', 'preview', 'searchreplace', 'drafts', 'help'
 ]];
 
 export default class extends React.Component {
-  state = {
-    value: ''
-  }
-
   componentDidMount () {
     window.UE.getEditor('static_editor', {
       autoHeightEnabled: false,
@@ -68,33 +63,24 @@ export default class extends React.Component {
         videoAllowFiles: [
           '.flv', '.swf', '.mkv', '.avi', '.rm', '.rmvb', '.mpeg', '.mpg',
           '.ogg', '.ogv', '.mov', '.wmv', '.mp4', '.webm', '.mp3', '.wav', '.mid'
-        ]
+        ],
+        /* 抓取远程图片配置 */
+        catcherLocalDomain: ['127.0.0.1', 'localhost', 'img.baidu.com'],
+        catcherActionName: 'catchimage', /* 执行抓取远程图片的action名称 */
+        catcherFieldName: 'file', /* 提交的图片列表表单名称 */
+        catcherPathFormat: '/ueditor/php/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}', /* 上传保存路径,可以自定义保存路径和文件名格式 */
+        catcherUrlPrefix: '', /* 图片访问路径前缀 */
+        catcherMaxSize: 2048000, /* 上传大小限制，单位B */
+        catcherResponseKey: 'fileURL',
+        catcherAllowFiles: ['.png', '.jpg', '.jpeg', '.gif', '.bmp'] /* 抓取图片格式显示 */
       }
     });
-  }
-
-  input = () => {
-    this.setState({
-      value: Math.random()
-    });
-
-    console.log(this.state.value);
-
-    setTimeout(() => {
-      this.setState({
-        value: Math.random()
-      });
-      console.log(this.state.value);
-    }, 5000);
   }
 
   render () {
     return (
       <div>
         {/* 三种不同的的ueditor对比 */}
-        <input type="text" onInput={this.input} />
-        <Test test={this.state.value}></Test>
-
         {/* 直接上传到服务器 */}
         <OwnServer></OwnServer>
 

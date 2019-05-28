@@ -19,12 +19,12 @@ class UEditor extends React.Component {
         'directionalityltr', 'directionalityrtl', 'indent', '|',
         'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
         'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-        'simpleupload', /* 'insertimage', 不支持 */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
+        'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template',  */ /* 'background', */ '|',
         'horizontal', 'date', 'time', 'spechars', /* 'snapscreen',  'wordimage', */'|',
-        'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts', */ '|',
+        'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts',  */ '|',
         'print', 'preview', 'searchreplace', 'drafts', 'help'
       ]],
-      // 图片转存关闭
+      // // 图片转存关闭
       catchRemoteImageEnable: false,
       // serverUrl: 'http://localhost:8000',
       serverOptions: {
@@ -104,9 +104,6 @@ class UEditor extends React.Component {
     let value = nextProps.value;
 
     if (Object.prototype.hasOwnProperty.call(nextProps, 'value')) {
-      console.log('getProps', value);
-      console.log('content', prevState.content);
-
       editorReady && editorReady.then((ueditor) => {
         (value === prevState.content || value === ueditor.getContent()) || ueditor.setContent(value || '');
       });
@@ -123,7 +120,7 @@ class UEditor extends React.Component {
         };
       }
       editorReady && editorReady.then((ueditor) => {
-        ueditor.setExtraData && ueditor.setExtraData(nextProps.ueditorOptions.serverExtra) && console.log('resetConfig');
+        ueditor.setExtraData && ueditor.setExtraData(nextProps.ueditorOptions.serverExtra);
         // 增加一层保险，react的组件更新机制有可能使ueditor参数更新在beforeUpload之后
         nextProps.setExtraDataComplete && nextProps.setExtraDataComplete();
       });
@@ -155,8 +152,6 @@ class UEditor extends React.Component {
       if (ueditor.document.getElementById('baidu_pastebin')) {
         return;
       }
-
-      console.log('setcontent', ueditor.getContent());
 
       onChange && onChange(ueditor.getContent());
     };

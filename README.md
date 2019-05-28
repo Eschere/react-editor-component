@@ -2,7 +2,7 @@
 
 ueditor的react封装版，修改了ueditor中的获取服务器端配置实现，更符合前后端分离的思想
 
-使用assets中的ueditor才能正常使用上传文件功能，所有ueditor源码改动都用`MARK:`做了标记，解压该文件可以查看具体改动
+使用assets中的utf8-php.zip才能正常使用上传文件功能，所有ueditor源码改动都用`MARK:`做了标记，解压该文件可以查看具体改动
 
 ueditor基于官方1.4.3.3分支修改，功能还在不断完善中
 
@@ -17,7 +17,7 @@ ueditor基于官方1.4.3.3分支修改，功能还在不断完善中
 
 ### Features
 1. 接收`value`和`onChange`，使用起来就像`input`一样简单，与`antd`的表单双向绑定配合使用更简单
-2. 上传文件增加`beforeUpload`钩子，可在上传前修改需要上传的文件、数据和请求头
+2. 上传文件增加`beforeUpload`钩子，可在上传前修改需要上传的文件、数据和请求头，对接第三方OSS易如反掌
 
 ### 安装
 ```bash
@@ -105,7 +105,7 @@ export default class App extends React.Component {
     'directionalityltr', 'directionalityrtl', 'indent', '|',
     'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
     'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-    'simpleupload', /* 'insertimage', 不支持 */ 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
+    'simpleupload',  'insertimage', 'emotion', 'scrawl', 'insertvideo', /* 上传视频 , */ /* 'music', 'attachment', */ /* 'map', 'gmap', */ 'insertframe', 'insertcode', /* 'webapp', */ 'pagebreak', /* 'template', */ /* 'background', */ '|',
     'horizontal', 'date', 'time', 'spechars', /* 'snapscreen',  'wordimage', */'|',
     'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', /* 'charts', */ '|',
     'print', 'preview', 'searchreplace', 'drafts', 'help'
@@ -209,7 +209,7 @@ body中会增加`author: author`
 `ueditorOptions.beforeUpload`
 `File => File | Promise`
 
-接口预上传的文件，需要返回File或者Promise,
+接收预上传的文件，需要返回File或者Promise,
 如果返回Promise，需要resolve一个File
 
 #### 设置额外数据完成钩子
@@ -272,3 +272,6 @@ export default class App extends React.Component {
 }
 ```
 
+### Contribution
+#### 如何运行项目
+请查看[wiki](https://github.com/Eschere/react-editor-component/wiki/%E5%A6%82%E4%BD%95%E8%BF%90%E8%A1%8C%E9%A1%B9%E7%9B%AE)了解如何运行项目
