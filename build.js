@@ -15,7 +15,7 @@ const config = {
     libraryExport: 'default'
   },
   externals: {
-    react: 'React'
+    react: 'react'
   },
   module: {
     rules: [
