@@ -11,6 +11,7 @@ class UEditor extends React.Component {
     // 不接受props改动而动态改动
     this.ueditorOptions = {
       autoHeightEnabled: false,
+      initialFrameWidth: '100%',
       toolbars: [[
         'fullscreen', /*  */ 'source', '|', 'undo', 'redo', '|',
         'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
@@ -33,7 +34,6 @@ class UEditor extends React.Component {
         imageFieldName: 'file', /* 提交的图片表单名称 */
         imageMaxSize: 2048000, /* 上传大小限制，单位B */
         imageAllowFiles: ['.png', '.jpg', '.jpeg', '.gif', '.bmp'], /* 上传图片格式显示 */
-        // imageAllowFiles: ['.png', '.jpg', '.jpeg', '.gif', '.bmp'], /* 上传图片格式显示 */
         imageCompressEnable: true, /* 是否压缩图片,默认是true */
         imageCompressBorder: 1600, /* 图片压缩最长边限制 */
         imageInsertAlign: 'none', /* 插入的图片浮动方式 */
